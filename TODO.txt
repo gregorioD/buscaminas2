@@ -1,0 +1,32 @@
+Implementaciones de funciones ya creadas:
+ 
+ - bienvenida a la aplicacion con creacion o ingreso de usuario
+
+ - pantalla de carga de usuario y contrasenia
+
+ - checkear que al seleccionar salir cierre secion en vez de salir
+
+ - mostrar una pantalla de puntajes: mejor por nivel, ranking de usrs (N mejores usuarios), 
+ y mejor puntaje por usr y nivel
+
+ - meter la base de datos en un archivo y poder actualizarla y modificarla con usrs y partidas 
+ nuevas
+
+
+
+
+
+
+ Funciones y caca nueva:
+
+ - Definir la forma de asignar puntajes
+ - como pindonga vamos a manejar el archivo 
+ - 
+
+
+Otres coses:
+
+- ingeniero mira lo de delete, pq capaz nos cagan a pedo por usar news sin los delete (crearDB)
+
+- hay que cambiar lo del read y revisar si esta bien puesta la funcion gets, ya que no aparece
+como definida y por eso no compila
