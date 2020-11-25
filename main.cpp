@@ -5,7 +5,7 @@
 #include <stdio.h>  
 #include <stdlib.h>   
 #include <time.h>
-#include "structs.cpp"
+#include "structs.h"
 
 using namespace std;
 
@@ -77,9 +77,8 @@ int menuUsuarios(){
 	DB database;
 	Partida match;
 	Usuario user;
-	if (!ExisteBDD()){
-		crearBaseDeDatos(&database);
-	}
+	ExisteBDD(&database);
+	
 	while(no_termino){
 		cout<<"Ingrese una opcion y pulse enter:"<<endl;
 		cout<<"1: Ingresar"<<endl;
