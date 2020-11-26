@@ -77,7 +77,10 @@ int menuUsuarios(){
 	DB database;
 	Partida match;
 	Usuario user;
-	ExisteBDD(&database);
+	
+	if(ExisteBDD(&database)){
+		database = AbrirBaseDeDatos();
+	}
 	
 	while(no_termino){
 		cout<<"Ingrese una opcion y pulse enter:"<<endl;
@@ -99,9 +102,7 @@ int menuUsuarios(){
 	}
 	switch(devaluacion_noche){
 		case 1:
-			database = AbrirBaseDeDatos();
 			user = AbrirUsuario(&database);
-			dificultad = menu();
 			do {
 				system("CLS");
 				dificultad = menu();
@@ -118,12 +119,11 @@ int menuUsuarios(){
 			} while (dificultad != 0);
 			break;
 		case 2:
-			database = AbrirBaseDeDatos();
+		//
 			crearUsuario(&database);
-			
 			break;
 		case 3:
-			database = AbrirBaseDeDatos();
+			// 
 			break;
 		case 4:
 			devolver = -1;

@@ -7,12 +7,11 @@
 #include <cstdio>
 
 using namespace std;
-
-
+// Crear archivo si no existe; 
 bool ExisteBDD(PDB database){
 	bool resultado = false;
-	ofstream archivo;
-	archivo.open("basededatos.bin", ios::binary);
+	ifstream archivo;
+	archivo.open("usuarios.bin", ios::binary);
 	if (!archivo.fail()){
 		if(!archivo.eof()) resultado = true;
 		else{
@@ -20,7 +19,13 @@ bool ExisteBDD(PDB database){
 		}
 		archivo.close();
 	}else{
-		cout<<"Error. Existe BDD"<<endl;
+		archivo.close();
+		ofstream archivo2;
+		archivo2.open("usuarios.bin", ios::binary);
+		if(archivo2.fail()){
+			cout<<"";
+		}
+		archivo2.close();
 	}
 	return resultado;
 }
@@ -28,7 +33,7 @@ bool ExisteBDD(PDB database){
 void crearBaseDeDatos(PDB database){
 	database -> cantidad_usuarios = 0;
 	ofstream archivo;
-	archivo.open("basededatos.bin", ios::binary);
+	archivo.open("usuarios.bin", ios::binary);
 	if(!archivo.fail()){
 		archivo.write((char*) database, sizeof(*database));
 		archivo.close();
@@ -182,9 +187,7 @@ void partidaAUsuario(PPartida match, PUsuario usr){
 		if (match -> tipo == 'G') usr -> gan++;
 		else if (match -> tipo == 'P') usr -> perd++;
 		else usr -> ab++;
-
 		int total = (usr -> gan) + (usr -> perd) + (usr -> ab);
-
 		usr -> ganadas = usr -> gan * 100.0 / total;	
 		usr -> perdidas = usr -> perd * 100.0 / total;
 		usr -> abandonos = usr -> ab * 100.0 / total;
@@ -197,7 +200,7 @@ void guardarDB(PDB database){
 	// en caso de que el archivo ya exista se le sobreescribe la base de datos,
 	// asi se puede llamar a la misma funcion cada vez que se quiera guardar algo
 	ofstream archivo;
-	archivo.open("basededatos.bin",ios::binary);
+	archivo.open("usuarios.bin",ios::binary);
 	if(!archivo.fail()){
 		archivo.write((char*) database, sizeof(*database));
 		archivo.close();
@@ -217,8 +220,7 @@ Usuario AbrirUsuario (PDB database){
 		cout<<"Ingrese nombre de usuario: ";
 		gets(nombre);
 		while(!encontrado && cont < QU){
-			longitud = strlen(database->usuarios[cont].nombre);
-			strcpy(n, database->usuarios[cont].nombre);
+			strcpy(n, (database->usuarios[cont].nombre));
 			if (strcmp(nombre, n)==0) encontrado = true;
 			else cont++;
 		}
@@ -226,11 +228,7 @@ Usuario AbrirUsuario (PDB database){
 		if(!encontrado) cout<<"Usuario inexistente."<<endl;
 	}
 	while(!coincide){
-		longitud = strlen(database -> usuarios[cont].contrasena);
-		while (i < longitud){
-			p[i] = database -> usuarios[cont].contrasena[i];
-			i++;
-		}
+		strcpy(p, (database -> usuarios[cont].contrasena));
 		cin.ignore(1000, '\n');
 		cout<<"Ingrese su contrasena: ";
 		gets(pwrd);
@@ -245,7 +243,7 @@ Usuario AbrirUsuario (PDB database){
 DB AbrirBaseDeDatos(){
 	DB database;
 	ifstream archivo;
-	archivo.open("basededatos.bin",ios::binary);
+	archivo.open("usuarios.bin",ios::binary);
 	if(!archivo.fail()){
 		archivo.read((char*) &database, sizeof(database));
 		archivo.close();
